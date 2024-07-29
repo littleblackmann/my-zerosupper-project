@@ -1,0 +1,25 @@
+.register {
+    padding: 80px; /* 增加內邊距 */
+    color: white; /* 設定文字顏色為白色 */
+    background-color: rgba(0, 0, 0, 0.5); /* 設定半透明黑色背景 */
+}
+
+.form-group {
+    margin-bottom: 30px; /* 每個表單組之間的底部間距 */
+}
+
+input {
+    padding: 10px; /* 設定內邊距 */
+    width: 100%; /* 設定寬度為 100% */
+    border: 1px solid #ccc; /* 設定邊框樣式 */
+    border-radius: 5px; /* 設定圓角 */
+}
+
+button {
+    padding: 10px 15px; /* 設定按鈕內邊距 */
+    background-color: #28a745; /* 設定按鈕背景色 */
+    color: white; /* 設定按鈕文字顏色為白色 */
+    border: none; /* 去除按鈕邊框 */
+    border-radius: 5px; /* 設定按鈕圓角 */
+    cursor: pointer; /* 設定滑鼠指標為手形 */
+}

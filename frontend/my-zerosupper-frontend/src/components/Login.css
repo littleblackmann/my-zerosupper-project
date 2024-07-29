@@ -1,0 +1,36 @@
+.login {
+    padding: 80px; /* 增加內邊距 */
+    color: white; /* 設定文字顏色為白色 */
+    background-color: rgba(0, 0, 0, 0.5); /* 設定半透明黑色背景 */
+}
+
+.form-group {
+    margin-bottom: 30px; /* 增加每組表單元素的下邊距 */
+}
+
+input {
+    padding: 10px; /* 增加輸入框的內邊距 */
+    width: 100%; /* 設定輸入框寬度為 100% */
+    border: 1px solid #ccc; /* 設定邊框 */
+    border-radius: 5px; /* 設定圓角邊框 */
+}
+
+.captcha-display {
+    margin: 10px 0; /* 設定上下邊距 */
+    font-size: 18px; /* 設定字體大小 */
+    font-weight: bold; /* 設定字體為粗體 */
+    color: yellow; /* 設定顏色，根據需要可以調整 */
+}
+
+button {
+    padding: 10px 15px; /* 設定按鈕的內邊距 */
+    background-color: #28a745; /* 設定按鈕背景顏色 */
+    color: white; /* 設定按鈕文字顏色為白色 */
+    border: none; /* 移除按鈕邊框 */
+    border-radius: 5px; /* 設定圓角邊框 */
+    cursor: pointer; /* 設定鼠標懸停時的樣式 */
+}
+
+button[type="button"] {
+    margin-top: 10px; /* 添加生成新驗證碼按鈕的上邊距 */
+}

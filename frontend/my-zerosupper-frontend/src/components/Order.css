@@ -1,0 +1,5 @@
+.order {
+    padding: 20px; /* 增加內邊距 */
+    color: white; /* 設定文字顏色為白色 */
+    background-color: rgba(0, 0, 0, 0.5); /* 設定半透明黑色背景 */
+}

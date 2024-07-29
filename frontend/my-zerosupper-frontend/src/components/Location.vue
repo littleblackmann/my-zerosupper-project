@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import './Location.css';
+
 /* global google */ // 告訴 ESLint google 是全局變量（防止 ESLint 報錯）
 
 export default {
@@ -28,16 +30,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.location {
-  padding: 20px; /* 增加內邊距 */
-  color: white; /* 設定文字顏色為白色 */
-  background-color: rgba(0, 0, 0, 0.5); /* 設定半透明黑色背景 */
-}
-
-.map {
-  height: 400px; /* 設定地圖的高度 */
-  width: 100%;   /* 設定地圖的寬度 */
-}
-</style>
