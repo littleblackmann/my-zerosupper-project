@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- 引入 Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDCUzG6xcPxC3ihJ8z2QQI1tFN4PVOeCA" async defer></script>
+  </head>
+  <body>
+    <noscript>
+      <strong>抱歉，但 <%= htmlWebpackPlugin.options.title %> 在沒有啟用 JavaScript 的情況下無法正常運行。請啟用它以繼續。</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- 建置的檔案將自動注入 -->
+  </body>
+</html>
