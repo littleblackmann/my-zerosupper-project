@@ -1,0 +1,258 @@
+/* 全局樣式 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #d7d6d9;
+    background-color: #1c1c28;
+    margin: 0;
+    padding: 0;
+}
+
+/* 管理員用戶界面容器 */
+.admin-user {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(28, 28, 40, 0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+/* 標題樣式 */
+h2, h3, h4 {
+    color: #d7d6d9;
+    margin-bottom: 20px;
+}
+
+/* 表單樣式 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* 表單標籤樣式 */
+.form-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: bold;
+    color: #d7d6d9;
+    font-size: 14px;
+}
+
+/* 輸入框、選擇框和文本區域樣式 */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    border: 1px solid #e5e5e7;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #252536;
+    color: #d7d6d9;
+}
+
+/* 確保商品名稱和圖片 URL 的輸入框樣式 */
+input[placeholder="商品名稱"],
+input[placeholder="圖片URL"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    border: 1px solid #ececef;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #252536;
+    color: #d7d6d9;
+}
+
+/* 按鈕樣式 */
+button {
+    background-color: #11bc17;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 按鈕懸停效果 */
+button:hover {
+    background-color: #6a5acd;
+}
+
+/* 取消按鈕樣式 */
+.cancel-button {
+    background-color: #6c757d;
+    margin-left: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+/* 篩選欄樣式 */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* 篩選欄內的輸入框和選擇框樣式 */
+.filter-bar input,
+.filter-bar select {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* 商品列表樣式 */
+.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* 商品項目樣式 */
+.product-item {
+    background-color: rgba(37, 37, 54, 0.8);
+    border: 1px solid #3a3a4e;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+/* 商品項目懸停效果 */
+.product-item:hover {
+    background-color: rgba(45, 45, 65, 0.9);
+}
+
+/* 商品名稱樣式 */
+.product-item strong {
+    font-size: 18px;
+    color: #d7d6d9;
+}
+
+/* 商品信息容器樣式 */
+.product-info {
+    flex-grow: 1;
+}
+
+/* 商品按鈕容器樣式 */
+.product-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 確保商品信息（包括價格）為淺色 */
+.product-item div {
+    color: #d7d6d9;
+}
+
+/* 新增和編輯表單樣式 */
+.edit-product-form {
+    background-color: rgba(37, 37, 54, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* 表單操作按鈕容器 */
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/* 分頁控制樣式 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* 分頁按鈕樣式 */
+.pagination button {
+    margin: 0 5px;
+}
+
+/* 編輯商品表單樣式 */
+.edit-product-form .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.edit-product-form .form-group label {
+    width: 120px; /* 調整標籤寬度以確保對齊 */
+    text-align: right;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.edit-product-form .form-group input,
+.edit-product-form .form-group select,
+.edit-product-form .form-group textarea {
+    flex-grow: 1;
+    max-width: 300px; /* 保持與原來的最大寬度一致 */
+}
+
+/* 調整描述文本區域的對齊 */
+.edit-product-form .form-group textarea {
+    vertical-align: top;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    /* 在小屏幕上調整篩選欄佈局 */
+    .filter-bar {
+        flex-direction: column;
+    }
+    
+    /* 在小屏幕上調整篩選欄內元素寬度 */
+    .filter-bar input,
+    .filter-bar select,
+    .filter-bar button {
+        width: 100%;
+    }
+    
+    /* 在小屏幕上調整商品項目佈局 */
+    .product-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    /* 在小屏幕上調整商品項目按鈕位置 */
+    .product-actions {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+
+    /* 編輯商品表單在小屏幕上的調整 */
+    .edit-product-form .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .edit-product-form .form-group label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .edit-product-form .form-group input,
+    .edit-product-form .form-group select,
+    .edit-product-form .form-group textarea {
+        width: 100%;
+        max-width: none;
+    }
+}

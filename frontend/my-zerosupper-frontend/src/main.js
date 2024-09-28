@@ -1,10 +1,19 @@
-import { createApp } from 'vue'; // 從 Vue 中導入 createApp 函數
-import App from './App.vue'; // 導入根組件 App
-import router from './router'; // 導入路由設定
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store'; // 新增：導入 Vuex store
 import '@fortawesome/fontawesome-free/css/all.css';
+import axios from 'axios'; 
+
 
 // 創建 Vue 應用實例
-const app = createApp(App).use(router);
+const app = createApp(App);
+
+app.config.globalProperties.$http = axios;
+
+// 使用路由和 Vuex store
+app.use(router);
+app.use(store); // 新增：使用 Vuex store
 
 // 動態引入 Google Maps API
 const script = document.createElement('script');

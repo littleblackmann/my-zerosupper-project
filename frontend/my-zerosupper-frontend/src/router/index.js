@@ -1,28 +1,58 @@
-import { createRouter, createWebHistory } from 'vue-router'; // 從 vue-router 導入創建路由器和歷史記錄的函數
-import Menu from '../components/Menu.vue'; // 引入菜單組件
-import Location from '../components/Location.vue'; // 引入位置組件
-import Login from '../components/Login.vue'; // 引入登入組件
-import Register from '../components/Register.vue'; // 引入註冊組件
-import Order from '../components/Order.vue'; // 引入點餐組件
-//import HomePage from '../components/HomePage.vue'; // 引入首頁組件
-import About from '../components/About.vue'; // 引入首頁組件
+import { createRouter, createWebHistory } from 'vue-router';
+import Menu from '../components/Menu.vue';
+import Location from '../components/Location.vue';
+import Login from '../components/Login.vue';
+import Register from '../components/Register.vue';
+import Order from '../components/Order.vue';
+import About from '../components/About.vue';
+import Cart from '../components/Cart.vue';
+import AdminUser from '../components/AdminUser.vue';  
 
-// 定義路由的數組
+function isLoggedIn() {
+  return localStorage.getItem('userToken') !== null;
+}
+
+function isAdminLoggedIn() {
+  return localStorage.getItem('adminToken') !== null; 
+}
+
 const routes = [
-  //{ path: '/', component: HomePage }, // 根路徑對應首頁組件
-  { path: '/about', component: About }, // '/about' 路徑對應關於我們組件
-  { path: '/menu', component: Menu }, // '/menu' 路徑對應菜單組件
-  { path: '/location', component: Location }, // '/location' 路徑對應位置組件
-  { path: '/login', component: Login }, // '/login' 路徑對應登入組件
-  { path: '/register', component: Register }, // '/register' 路徑對應註冊組件
-  { path: '/order', component: Order }, // '/order' 路徑對應點餐組件
-  
+  { path: '/about', component: About },
+  { path: '/menu', component: Menu },
+  { path: '/location', component: Location },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
+  {
+    path: '/order',
+    component: Order,
+    meta: { requiresAuth: true }
+  },
+  { path: '/cart', component: Cart },
+  {
+    path: '/admin',
+    component: AdminUser,
+    meta: { requiresAdminAuth: true }
+  }
 ];
 
-// 創建路由器實例
 const router = createRouter({
-  history: createWebHistory(), // 使用 HTML5 的歷史模式
-  routes, // 將定義的路由數組傳入路由器
+  history: createWebHistory(),
+  routes
 });
 
-export default router; // 將路由器實例導出
+router.beforeEach((to, from, next) => {
+  // 需要一般用戶權限的檢查
+  if (to.meta.requiresAuth && !isLoggedIn()) {
+    next('/login');
+  } 
+  // 需要管理員權限的檢查
+  else if (to.meta.requiresAdminAuth && !isAdminLoggedIn()) {
+    next('/login');  
+  } 
+  else {
+    next();  // 否則繼續導航
+  }
+});
+
+
+export default router;
