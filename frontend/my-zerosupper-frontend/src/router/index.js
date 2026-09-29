@@ -17,6 +17,7 @@ function isAdminLoggedIn() {
 }
 
 const routes = [
+  { path: '/', redirect: '/menu' },
   { path: '/about', component: About },
   { path: '/menu', component: Menu },
   { path: '/location', component: Location },
