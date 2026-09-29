@@ -31,7 +31,12 @@ export default {
         });
     },
     add_to_cart(product) {
-      // 加入購物車的邏輯
+      this.$store.dispatch('addToCart', {
+        productId: product.product_id,
+        productName: product.product_name,
+        price: product.price,
+        imageUrl: product.image_url,
+      });
     }
   }
 };

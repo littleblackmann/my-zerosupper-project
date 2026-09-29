@@ -1,0 +1,4 @@
+# Recovered deployment artifacts contain legacy credentials. Keep them local.
+recovered-artifacts/
+recovered-runtime/
+

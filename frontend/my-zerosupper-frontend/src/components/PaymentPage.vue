@@ -11,6 +11,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -18,9 +19,19 @@ export default {
       creditCardNumber: ''
     };
   },
+  computed: {
+    ...mapState({ cartItems: 'cart' })
+  },
   methods: {
     processPayment() {
       // 模擬付款成功，並發送訂單請求
+      const userId = localStorage.getItem('userId');
+
+      if (!userId) {
+        this.$router.push('/login');
+        return;
+      }
+
       axios.post(`/api/users/${userId}/orders`, {
         cartItems: this.cartItems, // 將購物車商品發送到後端
       }).then(response => {

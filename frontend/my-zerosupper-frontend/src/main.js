@@ -15,12 +15,16 @@ app.config.globalProperties.$http = axios;
 app.use(router);
 app.use(store); // 新增：使用 Vuex store
 
-// 動態引入 Google Maps API
-const script = document.createElement('script');
-script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAPS_API_KEY}`;
-script.async = true;
-script.defer = true;
-document.head.appendChild(script);
+// 僅在有設定 API key 時載入 Google Maps，避免送出無效請求。
+const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+if (googleMapsApiKey) {
+  const script = document.createElement('script');
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(googleMapsApiKey)}`;
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+}
 
 // 掛載應用
 app.mount('#app');
