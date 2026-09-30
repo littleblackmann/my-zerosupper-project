@@ -13,13 +13,13 @@
         <template v-if="!isLoggedIn">
           <p class="auth-kicker">WELCOME BACK</p>
           <h2>登入會員</h2>
-          <p class="auth-subtitle">使用你的電子信箱與密碼繼續。</p>
+          <p class="auth-subtitle">使用你的帳號或電子信箱與密碼繼續。</p>
           <p v-if="registered" class="auth-success" role="status">註冊完成！現在可以登入了。</p>
           <p v-if="errorMessage" class="auth-error" role="alert">{{ errorMessage }}</p>
 
           <form class="auth-form" @submit.prevent="handleLogin">
-            <label for="login-email">電子信箱
-              <input id="login-email" v-model.trim="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+            <label for="login-email">帳號或電子信箱
+              <input id="login-email" v-model.trim="email" type="text" autocomplete="username" placeholder="littleblack 或 name@example.com" required />
             </label>
             <label for="login-password">密碼
               <input id="login-password" v-model="password" type="password" autocomplete="current-password" placeholder="輸入你的密碼" required />

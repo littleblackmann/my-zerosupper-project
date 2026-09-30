@@ -12,14 +12,14 @@
       <div class="auth-card">
         <p class="auth-kicker">CREATE ACCOUNT</p>
         <h2>註冊會員</h2>
-        <p class="auth-subtitle">只需要電子信箱和一組至少 8 個字元的密碼。</p>
+        <p class="auth-subtitle">只需要電子信箱和一組至少 10 個字元的密碼。</p>
         <p v-if="errorMessage" class="auth-error" role="alert">{{ errorMessage }}</p>
         <form class="auth-form" @submit.prevent="handleRegister">
           <label for="register-email">電子信箱
             <input id="register-email" v-model.trim="email" type="email" autocomplete="email" placeholder="name@example.com" required />
           </label>
           <label for="register-password">密碼
-            <input id="register-password" v-model="password" type="password" autocomplete="new-password" minlength="8" placeholder="至少 8 個字元" required />
+            <input id="register-password" v-model="password" type="password" autocomplete="new-password" minlength="10" placeholder="至少 10 個字元" required />
           </label>
           <button type="submit" :disabled="isSubmitting">{{ isSubmitting ? '建立中…' : '建立會員帳號' }}</button>
         </form>

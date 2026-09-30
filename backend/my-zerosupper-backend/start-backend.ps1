@@ -13,7 +13,7 @@ if (-not (Test-Path -LiteralPath $localEnvironment)) {
     )
     Set-Content -LiteralPath $localEnvironment -Value $environmentContent -Encoding utf8
     Write-Host '已建立本機管理員帳號：'
-    Write-Host '  Email: admin@zerosupper.local'
+    Write-Host '  帳號: admin@zerosupper.local'
     Write-Host "  Password: $generatedPassword"
     Write-Host "密碼只保存在 $localEnvironment（已被 Git 忽略）。"
 }
