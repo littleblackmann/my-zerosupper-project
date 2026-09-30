@@ -1,36 +1,66 @@
 <template>
-  <div class="menu">
-    <h1>菜單</h1>
-    <div v-if="loading.menus">載入中...</div>
-    <div v-else-if="error.menus" class="error-message">載入菜單時發生錯誤。請稍後再試。</div>
-    <div v-else class="menu-images">
-      <div v-for="menu in menus" :key="menu.productId">
-        <img :src="menu.imageUrl" :alt="menu.productName" class="menu-image" @click="zoomImage(menu.imageUrl)" />
+  <div class="menu-page">
+    <section class="menu-intro">
+      <div class="section-shell menu-intro-inner">
+        <div>
+          <p class="menu-kicker">THE ORIGINAL MENU</p>
+          <h1>當年的菜單，<br />現在看還是會餓。</h1>
+        </div>
+        <p>不是復刻一間還在營業的店，而是把記憶裡的招牌味道好好保存下來。</p>
       </div>
-    </div>
+    </section>
 
-    <h1>漢堡</h1>
-    <div v-if="loading.burgers">載入中...</div>
-    <div v-else-if="error.burgers" class="error-message">載入漢堡資料時發生錯誤。請稍後再試。</div>
-    <div v-else class="food-grid">
-      <div v-for="burger in burgers" :key="burger.productId" class="food-item">
-        <img :src="burger.imageUrl" :alt="burger.productName" class="food-image" @click="zoomImage(burger.imageUrl)" />
-        <div class="food-info">
-          <h3>{{ burger.productName }}</h3>
-          <p>{{ burger.description }}</p>
+    <section class="menu-content section-shell">
+      <div class="menu-section-heading">
+        <div><span>01</span><div><p>MENU ARCHIVE</p><h2>紀念菜單</h2></div></div>
+        <p>點擊圖片可以放大查看。</p>
+      </div>
+      <div v-if="loading.menus" class="menu-state">正在翻出以前的菜單…</div>
+      <div v-else-if="error.menus" class="menu-state menu-error">菜單暫時載入失敗，請稍後再試。</div>
+      <div v-else class="menu-archive-grid">
+        <button v-for="menu in menus" :key="menu.productId" class="menu-archive-card" type="button" @click="zoomImage(menu.imageUrl)">
+          <img :src="menu.imageUrl" :alt="menu.productName" />
+          <span>點擊放大</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="burger-section">
+      <div class="section-shell">
+        <div class="menu-section-heading">
+          <div><span>02</span><div><p>SIGNATURE BURGER</p><h2>漢堡</h2></div></div>
+          <router-link to="/order">前往線上點餐 →</router-link>
+        </div>
+        <div v-if="loading.burgers" class="menu-state">漢堡正在上桌…</div>
+        <div v-else-if="error.burgers" class="menu-state menu-error">餐點資料暫時載入失敗，請稍後再試。</div>
+        <div v-else class="burger-grid">
+          <article v-for="burger in burgers" :key="burger.productId" class="burger-card">
+            <button class="burger-image-button" type="button" @click="zoomImage(burger.imageUrl)">
+              <img :src="burger.imageUrl" :alt="burger.productName" />
+              <span class="burger-badge">ZERO CLASSIC</span>
+            </button>
+            <div class="burger-info">
+              <div class="burger-title-row">
+                <h3>{{ burger.productName }}</h3>
+                <strong v-if="burger.price">NT$ {{ Number(burger.price).toFixed(0) }}</strong>
+              </div>
+              <p>{{ burger.description }}</p>
+            </div>
+          </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 新增的圖片放大遮罩層 -->
-    <div class="image-zoom-overlay" @click="closeZoom">
-      <img :src="zoomedImageSrc" alt="Zoomed image" v-if="zoomedImageSrc">
+    <div v-if="zoomedImageSrc" class="image-zoom-overlay" role="dialog" aria-modal="true" aria-label="放大的菜單圖片" @click.self="closeZoom">
+      <button class="zoom-close" type="button" aria-label="關閉放大圖片" @click="closeZoom">×</button>
+      <img :src="zoomedImageSrc" alt="放大的菜單或餐點圖片" />
     </div>
   </div>
 </template>
 
 <script>
 import api from '../services/api';
+import './Menu.css';
 
 export default {
   name: 'MenuComponent',
@@ -38,15 +68,9 @@ export default {
     return {
       menus: [],
       burgers: [],
-      loading: {
-        menus: true,
-        burgers: true
-      },
-      error: {
-        menus: false,
-        burgers: false
-      },
-      zoomedImageSrc: null  // 新增的數據屬性
+      loading: { menus: true, burgers: true },
+      error: { menus: false, burgers: false },
+      zoomedImageSrc: null,
     };
   },
   mounted() {
@@ -56,13 +80,7 @@ export default {
   methods: {
     async fetchMenus() {
       try {
-        const response = await api.get('/products', {
-          params: {
-            category: 'MENU',
-            limit: 100,
-            offset: 0
-          }
-        });
+        const response = await api.get('/products', { params: { category: 'MENU', limit: 100, offset: 0 } });
         this.menus = response.data.results;
       } catch (error) {
         console.error('獲取菜單資料時發生錯誤:', error);
@@ -73,13 +91,7 @@ export default {
     },
     async fetchBurgers() {
       try {
-        const response = await api.get('/products', {
-          params: {
-            category: 'BURGER',
-            limit: 100,
-            offset: 0
-          }
-        });
+        const response = await api.get('/products', { params: { category: 'BURGER', limit: 100, offset: 0 } });
         this.burgers = response.data.results;
       } catch (error) {
         console.error('獲取漢堡資料時發生錯誤:', error);
@@ -88,19 +100,8 @@ export default {
         this.loading.burgers = false;
       }
     },
-    // 新增的方法
-    zoomImage(imageSrc) {
-      this.zoomedImageSrc = imageSrc;
-      document.querySelector('.image-zoom-overlay').style.display = 'flex';
-    },
-    closeZoom() {
-      this.zoomedImageSrc = null;
-      document.querySelector('.image-zoom-overlay').style.display = 'none';
-    }
-  }
+    zoomImage(imageSrc) { this.zoomedImageSrc = imageSrc; },
+    closeZoom() { this.zoomedImageSrc = null; },
+  },
 };
 </script>
-
-<style>
-@import './Menu.css';
-</style>

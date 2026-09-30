@@ -1,32 +1,28 @@
 <template>
-  <div class="location">
-    <h1>地址：台北市松山區南京東路五段23巷6弄29號</h1> <!-- 顯示餐廳地址 -->
-    <div id="map" class="map"></div> <!-- 地圖顯示區域 -->
+  <div class="location-page">
+    <section class="location-copy">
+      <div class="location-inner">
+        <p class="location-kicker">WHERE IT ALL HAPPENED</p>
+        <h1>故事發生在<br />南京東路的小巷裡。</h1>
+        <p class="location-lead">台北市松山區南京東路五段 23 巷 6 弄 29 號</p>
+        <p class="location-note">店已成為回憶，地址留在這裡，紀念我們曾經在這個地方認真生活過。</p>
+        <a class="map-button" href="https://www.google.com/maps/search/?api=1&query=台北市松山區南京東路五段23巷6弄29號" target="_blank" rel="noreferrer">用 Google 地圖開啟 <span>↗</span></a>
+      </div>
+    </section>
+
+    <section class="map-panel" aria-label="ZERO Supper 舊址地圖">
+      <iframe
+        title="ZERO Supper 舊址地圖"
+        src="https://www.google.com/maps?q=台北市松山區南京東路五段23巷6弄29號&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      <div class="map-label"><span>ZERO Supper</span><strong>舊店址</strong></div>
+    </section>
   </div>
 </template>
 
 <script>
 import './Location.css';
-
-/* global google */ // 告訴 ESLint google 是全局變量（防止 ESLint 報錯）
-
-export default {
-  name: 'LocationComponent', // 設定組件的名稱為 LocationComponent
-  mounted() {
-    this.initMap(); // 組件掛載後初始化地圖
-  },
-  methods: {
-    initMap() {
-      const restaurantLocation = { lat: 25.05220232417501, lng: 121.55905498393943 }; // 餐廳的緯度和經度
-      const map = new google.maps.Map(document.getElementById("map"), { // 初始化地圖
-        zoom: 15, // 設定地圖的縮放級別
-        center: restaurantLocation, // 設定地圖中心為餐廳位置
-      });
-      new google.maps.Marker({ // 在地圖上添加標記
-        position: restaurantLocation, // 標記的位置
-        map: map, // 標記所在的地圖
-      });
-    },
-  },
-}
+export default { name: 'LocationComponent' };
 </script>

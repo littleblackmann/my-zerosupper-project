@@ -1,42 +1,38 @@
-/* 設定整體頁面的樣式 */
-.home {
-color: white; /* 設定文字顏色為白色 */
-text-align: center; /* 文字置中 */
-}
+.about-page { color: var(--espresso-950); }
+.about-hero { min-height: 560px; display: grid; align-items: end; padding: clamp(4rem, 10vw, 7rem) 1.25rem; color: white; background: linear-gradient(90deg, rgba(16, 43, 36, 0.92), rgba(16, 43, 36, 0.38)), url('@/assets/background.jpg') center 58% / cover; }
+.about-hero-inner { width: min(100%, var(--content-width)); margin: 0 auto; }
+.page-kicker { margin: 0 0 1rem; color: var(--mustard-500); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.22em; }
+.about-hero h1 { max-width: 900px; margin: 0; font-family: Georgia, "Noto Serif TC", "Microsoft JhengHei", serif; font-size: clamp(2.5rem, 5.6vw, 5rem); line-height: 1.15; letter-spacing: -0.045em; }
+.about-hero > div > p:last-child { max-width: 650px; margin: 1.5rem 0 0; color: rgba(255, 255, 255, 0.76); font-size: 1.05rem; line-height: 1.8; }
+.story-section { display: grid; grid-template-columns: 0.5fr 1.5fr; gap: clamp(2rem, 8vw, 8rem); padding-block: clamp(5rem, 10vw, 8rem); }
+.story-label { padding-top: 0.6rem; color: var(--tomato-600); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.2em; }
+.story-copy { max-width: 760px; }
+.story-copy h2, .about-section-heading h2 { margin: 0; font-family: Georgia, "Noto Serif TC", "Microsoft JhengHei", serif; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.25; letter-spacing: -0.035em; }
+.story-copy p { margin: 1.5rem 0 0; color: var(--text-muted); line-height: 1.95; }
+.founders-section { padding-block: clamp(5rem, 9vw, 7.5rem); background: var(--cream-100); }
+.about-section-heading { max-width: 680px; }
+.about-section-heading > p:last-child { color: var(--text-muted); line-height: 1.7; }
+.founder-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 4vw, 3rem); margin-top: 3.5rem; }
+.founder-card { min-width: 0; }
+.founder-card-offset { margin-top: 4rem; }
+.founder-photo-wrap { position: relative; overflow: hidden; border-radius: var(--radius-large); background: var(--forest-900); box-shadow: var(--shadow-card); }
+.founder-photo-wrap::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 -90px 70px rgba(16, 43, 36, 0.26); }
+.founder-photo-wrap img { width: 100%; height: min(62vw, 620px); max-height: 620px; object-fit: cover; transition: transform 0.45s ease; }
+.founder-card:hover img { transform: scale(1.025); }
+.founder-photo-wrap span { position: absolute; right: 1rem; bottom: 0.6rem; z-index: 1; color: rgba(255, 255, 255, 0.9); font-family: Georgia, "Times New Roman", serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; }
+.founder-info { padding: 1.1rem 0.35rem 0; }
+.founder-info p { margin: 0; color: var(--tomato-600); font-size: 0.65rem; font-weight: 900; letter-spacing: 0.17em; }
+.founder-info h3 { margin: 0.35rem 0 0; font-family: Georgia, "Noto Serif TC", serif; font-size: 1.45rem; }
+.about-quote { padding-block: clamp(5rem, 10vw, 8rem); text-align: center; }
+.about-quote > span { color: var(--mustard-500); font-family: Georgia, serif; font-size: 5rem; line-height: 0.65; }
+.about-quote blockquote { max-width: 820px; margin: 1rem auto 2rem; color: var(--forest-900); font-family: Georgia, "Noto Serif TC", "Microsoft JhengHei", serif; font-size: clamp(1.8rem, 4vw, 3.25rem); font-weight: 700; line-height: 1.45; }
+.about-menu-link { color: var(--tomato-600); font-weight: 800; text-decoration: none; }
 
-/* 設定創始人區塊的樣式 */
-.founders {
-display: flex; /* 使用 Flexbox 排版 */
-justify-content: center; /* 使內容在水平方向上置中 */
-flex-wrap: wrap; /* 允許子元素換行 */
-margin-top: 55px; /* 增加上邊距 */
-}
-
-/* 設定每個創始人的樣式 */
-.founder {
-margin: 30px; /* 增加外邊距 */
-text-align: center; /* 文字置中 */
-}
-
-/* 設定創始人圖片的樣式 */
-.founders img {
-width: 300px; /* 設定圖片的寬度 */
-height: 450px; /* 設定圖片的高度 */
-object-fit: cover; /* 確保圖片按比例縮放並填充容器 */
-border-radius: 20px; /* 設定圖片邊角圓滑 */
-}
-
-/* 調整創始人標題的字體大小 */
-.founder p {
-font-size: 36px; /* 設定字體大小 */
-}
-
-/* 調整副標題的字體大小 */
-h2 {
-font-size: 36px; /* 設定字體大小 */
-}
-
-/* 調整段落文字的字體大小 */
-p {
-font-size: 21px; /* 設定字體大小 */
+@media (max-width: 720px) {
+  .about-hero { min-height: 500px; }
+  .about-hero h1 br { display: none; }
+  .story-section { grid-template-columns: 1fr; gap: 1rem; }
+  .founder-grid { grid-template-columns: 1fr; }
+  .founder-card-offset { margin-top: 0; }
+  .founder-photo-wrap img { height: 118vw; max-height: 590px; }
 }

@@ -8,6 +8,7 @@ import About from '../components/About.vue';
 import Cart from '../components/Cart.vue';
 import AdminUser from '../components/AdminUser.vue';  
 import MyOrders from '../components/MyOrders.vue';
+import HomePage from '../components/HomePage.vue';
 
 function isLoggedIn() {
   return localStorage.getItem('userToken') !== null;
@@ -18,17 +19,13 @@ function isAdminLoggedIn() {
 }
 
 const routes = [
-  { path: '/', redirect: '/menu' },
+  { path: '/', component: HomePage },
   { path: '/about', component: About },
   { path: '/menu', component: Menu },
   { path: '/location', component: Location },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  {
-    path: '/order',
-    component: Order,
-    meta: { requiresAuth: true }
-  },
+  { path: '/order', component: Order },
   { path: '/cart', component: Cart },
   {
     path: '/orders',
@@ -44,7 +41,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior() {
+    return { top: 0 };
+  }
 });
 
 router.beforeEach((to, from, next) => {

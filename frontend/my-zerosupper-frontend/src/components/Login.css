@@ -1,172 +1,39 @@
-/* 整體登錄容器樣式 */
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+.auth-page { min-height: calc(100vh - 78px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(430px, 0.95fr); background: var(--cream-50); }
+.auth-visual { min-height: 680px; display: flex; align-items: flex-end; padding: clamp(2rem, 6vw, 5rem); color: white; background: linear-gradient(0deg, rgba(16, 43, 36, 0.9), rgba(16, 43, 36, 0.16)), url('@/assets/background.jpg') center / cover; }
+.auth-page-register .auth-visual { background-position: 68% center; }
+.auth-visual > div { max-width: 620px; }
+.auth-visual p, .auth-kicker { margin: 0 0 1rem; color: var(--mustard-500); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.2em; }
+.auth-visual h1 { margin: 0; font-family: Georgia, "Noto Serif TC", "Microsoft JhengHei", serif; font-size: clamp(2.3rem, 4.5vw, 4.5rem); line-height: 1.18; letter-spacing: -0.04em; }
+.auth-visual span { display: block; max-width: 520px; margin-top: 1rem; color: rgba(255, 255, 255, 0.7); line-height: 1.75; }
+.auth-panel { display: grid; place-items: center; padding: clamp(2rem, 7vw, 6rem); }
+.auth-card { width: min(100%, 480px); }
+.auth-kicker { color: var(--tomato-600); }
+.auth-card h2 { margin: 0; font-family: Georgia, "Noto Serif TC", serif; font-size: clamp(2.2rem, 4vw, 3.4rem); }
+.auth-subtitle { margin: 0.8rem 0 0; color: var(--text-muted); line-height: 1.7; }
+.auth-form { display: grid; gap: 1.2rem; margin-top: 2rem; }
+.auth-form label { display: grid; gap: 0.55rem; color: var(--espresso-800); font-size: 0.84rem; font-weight: 800; }
+.auth-form input { width: 100%; min-height: 52px; padding: 0.8rem 1rem; border: 1px solid var(--cream-200); border-radius: 12px; color: var(--espresso-950); background: white; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.auth-form input:focus { border-color: var(--mustard-600); box-shadow: 0 0 0 4px rgba(217, 170, 85, 0.13); outline: 0; }
+.auth-form button { min-height: 54px; margin-top: 0.5rem; border: 0; border-radius: 999px; color: white; background: var(--forest-900); font-weight: 900; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; }
+.auth-form button:hover:not(:disabled) { background: var(--forest-800); transform: translateY(-1px); }
+.auth-form button:disabled { opacity: 0.6; cursor: wait; }
+.auth-switch { margin: 1.5rem 0 0; color: var(--text-muted); font-size: 0.85rem; text-align: center; }
+.auth-switch a { color: var(--tomato-600); font-weight: 800; }
+.auth-error, .auth-success { margin: 1.25rem 0 0; padding: 0.85rem 1rem; border-radius: 12px; font-size: 0.84rem; line-height: 1.5; }
+.auth-error { color: #8d2c1c; background: #fde3dc; }
+.auth-success { color: var(--forest-900); background: #e4f1e9; }
+.auth-welcome-mark { width: 78px; height: 78px; display: grid; place-items: center; margin-bottom: 1.5rem; border-radius: 50%; color: var(--forest-950); background: var(--mustard-500); font-family: Georgia, serif; font-size: 1.4rem; font-weight: 900; }
+.auth-member-actions { display: grid; gap: 0.75rem; margin-top: 2rem; }
+.auth-member-actions a, .auth-member-actions button { min-height: 50px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--forest-900); border-radius: 999px; color: var(--forest-900); background: transparent; font-weight: 800; text-decoration: none; cursor: pointer; }
+.auth-member-actions a:first-child { color: white; background: var(--forest-900); }
+
+@media (max-width: 850px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-visual { min-height: 380px; }
+  .auth-panel { min-height: 600px; }
 }
 
-/* 登錄框樣式 */
-.login-box {
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* 標題樣式 */
-.login-title {
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    text-align: center;
-    color: white;
-}
-
-/* 表單樣式 */
-.login-form {
-    display: flex;
-    background-color: rgba(32, 31, 31, 0.7);
-    padding: 50px;
-    flex-direction: column;
-}
-
-/* 表單組樣式 */
-.form-group {
-    margin-bottom: 25px;
-}
-
-/* 標籤樣式 */
-.form-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: white;  /* 確保標籤文字是白色 */
-}
-
-/* 輸入框樣式 */
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.9);  /* 稍微提高背景不透明度 */
-    color: black;  /* 將輸入文字顏色設為黑色 */
-    font-size: 1.1em;
-}
-
-/* 驗證碼容器樣式 */
-.captcha-container {
-    display: flex;
-    gap: 15px;
-}
-
-/* 驗證碼顯示樣式 */
-.captcha-display {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    border-radius: 5px;
-    font-weight: bold;
-    color: white;
-    font-size: 1.1em;
-}
-
-/* 按鈕基本樣式 */
-.captcha-button, .login-button, .logout-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-/* 驗證碼按鈕樣式 */
-.captcha-button {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    margin-top: 15px;
-}
-
-.captcha-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-/* 登入按鈕樣式 */
-.login-button {
-    background-color: #4CAF50;
-    color: white;
-    margin-top: 25px;
-}
-
-.login-button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-}
-
-/* 登出按鈕樣式 */
-.logout-button {
-    background-color: #f44336;
-    color: white;
-    margin-top: 25px;
-}
-
-.logout-button:hover {
-    background-color: #da190b;
-    transform: translateY(-2px);
-}
-
-/* 歡迎信息樣式 */
-.welcome-message {
-    text-align: center;
-    color: white;
-}
-
-.welcome-message h3 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.welcome-message p {
-    font-size: 1.3em;
-    margin-bottom: 25px;
-}
-
-/* 響應式設計 */
-@media (max-width: 768px) {
-    .login-box {
-        padding: 30px;
-        max-width: 90%;
-    }
-
-    .login-title {
-        font-size: 2.2em;
-    }
-
-    .form-group input,
-    .captcha-button, 
-    .login-button, 
-    .logout-button {
-        font-size: 1em;
-    }
-}
-
-/* 錯誤信息樣式 */
-.error-message {
-    color: #ff6b6b;
-    text-align: center;
-    padding: 15px;
-    background-color: rgba(255, 107, 107, 0.2);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 1.1em;
-}
-
-/* 確保輸入框的佔位符文字為淺灰色 */
-input::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+@media (max-width: 520px) {
+  .auth-visual { min-height: 330px; padding: 2rem 1rem; }
+  .auth-panel { min-height: 540px; padding: 3.5rem 1rem; }
 }

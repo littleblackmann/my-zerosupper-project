@@ -380,6 +380,6 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   @import './AdminUser.css';
   </style>

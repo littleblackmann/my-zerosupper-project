@@ -1,130 +1,43 @@
-/* 整體菜單容器樣式 */
-.menu {
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 15px;
-}
+.menu-page { color: var(--espresso-950); }
+.menu-intro { padding-block: clamp(5rem, 11vw, 8.5rem); color: white; background: linear-gradient(90deg, rgba(16, 43, 36, 0.94), rgba(16, 43, 36, 0.5)), url('@/assets/background.jpg') center / cover; }
+.menu-intro-inner { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr); align-items: end; gap: 3rem; }
+.menu-kicker { margin: 0 0 1rem; color: var(--mustard-500); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.22em; }
+.menu-intro h1 { margin: 0; font-family: Georgia, "Noto Serif TC", "Microsoft JhengHei", serif; font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.12; letter-spacing: -0.045em; }
+.menu-intro-inner > p { margin: 0; color: rgba(255, 255, 255, 0.72); line-height: 1.9; }
+.menu-content, .burger-section > .section-shell { padding-block: clamp(4.5rem, 8vw, 7rem); }
+.menu-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2.5rem; }
+.menu-section-heading > div { display: flex; align-items: center; gap: 1rem; }
+.menu-section-heading > div > span { color: var(--mustard-600); font-family: Georgia, "Times New Roman", serif; font-size: 3.4rem; line-height: 1; }
+.menu-section-heading p { margin: 0 0 0.3rem; color: var(--tomato-600); font-size: 0.65rem; font-weight: 900; letter-spacing: 0.18em; }
+.menu-section-heading h2 { margin: 0; font-family: Georgia, "Noto Serif TC", serif; font-size: clamp(2rem, 4vw, 3.2rem); }
+.menu-section-heading > p { color: var(--text-muted); font-size: 0.84rem; font-weight: 500; letter-spacing: 0; }
+.menu-section-heading > a { color: var(--forest-900); font-weight: 800; text-decoration: none; }
+.menu-archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); gap: 1.5rem; }
+.menu-archive-card { position: relative; padding: 0; overflow: hidden; border: 0; border-radius: var(--radius-medium); background: var(--forest-900); box-shadow: var(--shadow-card); cursor: zoom-in; }
+.menu-archive-card img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.35s ease; }
+.menu-archive-card:hover img { transform: scale(1.03); }
+.menu-archive-card span { position: absolute; right: 0.8rem; bottom: 0.8rem; padding: 0.55rem 0.8rem; border-radius: 999px; color: var(--forest-950); background: var(--cream-100); font-size: 0.72rem; font-weight: 800; }
+.burger-section { background: var(--cream-100); }
+.burger-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.burger-card { overflow: hidden; border: 1px solid rgba(36, 27, 23, 0.07); border-radius: var(--radius-large); background: var(--cream-50); box-shadow: var(--shadow-card); }
+.burger-image-button { position: relative; width: 100%; padding: 0; overflow: hidden; border: 0; background: var(--cream-200); cursor: zoom-in; }
+.burger-image-button img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 0.4s ease; }
+.burger-image-button:hover img { transform: scale(1.035); }
+.burger-badge { position: absolute; top: 1rem; left: 1rem; padding: 0.55rem 0.75rem; border-radius: 999px; color: white; background: var(--tomato-600); font-size: 0.62rem; font-weight: 900; letter-spacing: 0.12em; }
+.burger-info { padding: 1.4rem; }
+.burger-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.burger-title-row h3 { margin: 0; font-family: Georgia, "Noto Serif TC", serif; font-size: 1.45rem; }
+.burger-title-row strong { color: var(--tomato-600); white-space: nowrap; }
+.burger-info > p { margin: 0.7rem 0 0; color: var(--text-muted); line-height: 1.7; }
+.menu-state { padding: 2.5rem; border: 1px dashed var(--cream-200); border-radius: var(--radius-medium); color: var(--text-muted); text-align: center; }
+.menu-error { color: var(--tomato-600); }
+.image-zoom-overlay { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 2rem; background: rgba(9, 24, 20, 0.94); backdrop-filter: blur(8px); }
+.image-zoom-overlay img { max-width: min(92vw, 960px); max-height: 86vh; border-radius: 12px; object-fit: contain; box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45); }
+.zoom-close { position: absolute; top: 1.25rem; right: 1.25rem; width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; color: white; background: transparent; font-size: 1.7rem; cursor: pointer; }
 
-/* 標題樣式 */
-h1 {
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    text-align: center;
-}
-
-/* 菜單圖片容器樣式 */
-.menu-images {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 30px;
-}
-
-/* 菜單圖片和食品圖片共用樣式 */
-.menu-image, .food-image {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.menu-image:hover, .food-image:hover {
-    transform: scale(1.05);
-}
-
-/* 放大圖片的遮罩層 */
-.image-zoom-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 放大的圖片 */
-.image-zoom-overlay img {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-}
-
-/* 食品網格布局 */
-.food-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-/* 食品項目樣式 */
-.food-item {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    transition: transform 0.3s ease;
-}
-
-.food-item:hover {
-    transform: translateY(-5px);
-}
-
-/* 食品信息容器 */
-.food-info {
-    padding: 15px;
-    text-align: center;
-}
-
-/* 食品名稱樣式 */
-.food-info h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.4em;
-    color: white;
-}
-
-/* 食品描述樣式 */
-.food-info p {
-    margin: 0;
-    line-height: 1.5;
-    font-size: 1em;
-    color: white;
-}
-
-/* 錯誤信息樣式 */
-.error-message {
-    color: #ff6b6b;
-    text-align: center;
-    padding: 15px;
-    background-color: rgba(255, 107, 107, 0.2);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 1.1em;
-}
-
-/* 響應式設計 */
-@media (max-width: 768px) {
-    .food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-    
-    .menu-image, .food-image {
-        width: 200px;
-        height: 200px;
-    }
-    
-    h1 {
-        font-size: 2em;
-    }
+@media (max-width: 700px) {
+  .menu-intro-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .menu-intro h1 br { display: none; }
+  .menu-section-heading { align-items: flex-start; flex-direction: column; gap: 1rem; }
+  .menu-archive-grid { grid-template-columns: 1fr; }
 }
