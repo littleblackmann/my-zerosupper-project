@@ -129,12 +129,41 @@
           <button @click="changePage(-1)" :disabled="offset === 0">上一頁</button>
           <button @click="changePage(1)" :disabled="offset + limit >= page.total">下一頁</button>
         </div>
+
+        <h4>近期訂單：</h4>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr><th>編號</th><th>會員</th><th>到店時間</th><th>金額</th><th>狀態</th></tr>
+            </thead>
+            <tbody>
+              <tr v-for="order in orders" :key="order.orderId">
+                <td>#{{ order.orderId }}</td>
+                <td>{{ order.userEmail }}</td>
+                <td>{{ order.arrivalDate }} {{ order.arrivalTime }}</td>
+                <td>{{ order.totalAmount }} 元</td>
+                <td>
+                  <select :value="order.status" @change="updateOrderStatus(order, $event.target.value)">
+                    <option v-for="status in orderStatuses" :key="status" :value="status">{{ status }}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>會員：</h4>
+        <ul class="product-list">
+          <li v-for="user in users" :key="user.userId" class="product-item">
+            <div class="product-info">{{ user.email }} · {{ user.role }}</div>
+          </li>
+        </ul>
       </div>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
+  import api, { apiErrorMessage, clearSession, saveSession } from '../services/api';
   
   export default {
     name: 'AdminUser',
@@ -144,6 +173,9 @@
         password: '',
         isLoggedIn: false,
         products: [],
+        orders: [],
+        users: [],
+        orderStatuses: ['RECEIVED', 'CONFIRMED', 'PREPARING', 'READY', 'COMPLETED', 'CANCELLED'],
         newProduct: {
           productName: '',
           category: '',
@@ -168,38 +200,53 @@
     },
   
     created() {
-      this.isLoggedIn = !!localStorage.getItem('adminToken');
+      this.isLoggedIn = !!localStorage.getItem('userToken') && localStorage.getItem('userRole') === 'ADMIN';
       if (this.isLoggedIn) {
-        this.fetchProducts();
+        this.fetchAdministration();
       }
     },
   
     methods: {
       async handleAdminLogin() {
         try {
-          const response = await axios.post('http://localhost:9527/users/login', {
+          const response = await api.post('/auth/login', {
             email: this.email,
             password: this.password
           });
-          if (response.status === 200) {
-            localStorage.setItem('adminToken', response.data.user.token);
+          if (response.status === 200 && response.data.role === 'ADMIN') {
+            saveSession(response.data);
             this.isLoggedIn = true;
-            this.fetchProducts();
+            this.fetchAdministration();
+          } else {
+            clearSession();
+            alert('這個帳號沒有管理員權限。');
           }
         } catch (error) {
           console.error('登入錯誤:', error.response ? error.response.data : error.message);
-          alert('登入失敗，請檢查您的郵箱和密碼。');
+          alert(apiErrorMessage(error, '登入失敗，請檢查您的郵箱和密碼。'));
         }
       },
   
-      handleLogout() {
-        localStorage.removeItem('adminToken');
+      async handleLogout() {
+        try {
+          await api.post('/auth/logout');
+        } catch (error) {
+          console.warn('後端登出失敗，仍會清除本機登入狀態。', error);
+        }
+        clearSession();
         this.isLoggedIn = false;
+        this.$router.push('/login');
+      },
+
+      fetchAdministration() {
+        this.fetchProducts();
+        this.fetchOrders();
+        this.fetchUsers();
       },
   
       async fetchProducts() {
         try {
-          const response = await axios.get('http://localhost:9527/products', {
+          const response = await api.get('/products', {
             params: {
               category: this.selectedCategory || undefined,
               search: this.searchQuery || undefined,
@@ -223,7 +270,7 @@
           return;
         }
         try {
-          const response = await axios.post('http://localhost:9527/products', this.newProduct);
+          const response = await api.post('/admin/products', this.newProduct);
           if (response.status === 201) {
             this.showAddProductForm = false;
             this.newProduct = { productName: '', category: '', imageUrl: '', price: 0, stock: 0, description: '' };
@@ -256,7 +303,7 @@
             description: this.editingProduct.description
           };
   
-          const response = await axios.put(`http://localhost:9527/products/${this.editingProduct.productId}`, updatedProduct);
+          const response = await api.put(`/admin/products/${this.editingProduct.productId}`, updatedProduct);
           if (response.status === 200) {
             const index = this.products.findIndex(p => p.productId === this.editingProduct.productId);
             if (index !== -1) {
@@ -284,7 +331,7 @@
       async deleteProduct(productId) {
         if (confirm('確定要刪除此商品嗎？')) {
           try {
-            const response = await axios.delete(`http://localhost:9527/products/${productId}`);
+            const response = await api.delete(`/admin/products/${productId}`);
             if (response.status === 204) {
               this.products = this.products.filter(p => p.productId !== productId);
               this.fetchProducts();
@@ -300,6 +347,34 @@
       changePage(direction) {
         this.offset += direction * this.limit;
         this.fetchProducts();
+      },
+
+      async fetchOrders() {
+        try {
+          const response = await api.get('/admin/orders', { params: { limit: 50, offset: 0 } });
+          this.orders = response.data.results;
+        } catch (error) {
+          console.error('取得訂單失敗:', error);
+        }
+      },
+
+      async fetchUsers() {
+        try {
+          const response = await api.get('/admin/users');
+          this.users = response.data;
+        } catch (error) {
+          console.error('取得會員失敗:', error);
+        }
+      },
+
+      async updateOrderStatus(order, status) {
+        try {
+          const response = await api.patch(`/admin/orders/${order.orderId}/status`, { status });
+          Object.assign(order, response.data);
+        } catch (error) {
+          alert(apiErrorMessage(error, '更新訂單狀態失敗。'));
+          this.fetchOrders();
+        }
       }
     }
   };

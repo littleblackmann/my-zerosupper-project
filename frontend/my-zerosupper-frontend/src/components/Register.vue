@@ -19,7 +19,7 @@
 
 <script>
 import './Register.css';
-import axios from 'axios';
+import api, { apiErrorMessage } from '../services/api';
 
 export default {
   name: 'RegisterComponent',
@@ -32,7 +32,7 @@ export default {
   methods: {
     async handleRegister() {
       try {
-        const response = await axios.post('http://localhost:9527/users/register', {
+        const response = await api.post('/auth/register', {
           email: this.email,
           password: this.password
         });
@@ -47,7 +47,7 @@ export default {
         }
       } catch (error) {
         console.error('註冊錯誤:', error);
-        alert('註冊時發生錯誤，請稍後再試。');
+        alert(apiErrorMessage(error, '註冊時發生錯誤，請稍後再試。'));
       }
     },
     clearForm() {

@@ -56,7 +56,7 @@
   
   <script>
   import { mapState, mapGetters, mapActions } from 'vuex';
-  import axios from 'axios';
+  import api, { apiErrorMessage } from '../services/api';
   
   export default {
     name: 'CartComponent',
@@ -85,10 +85,9 @@
   
       async checkout() {
         const userToken = localStorage.getItem('userToken');
-        const userId = localStorage.getItem('userId');
         this.userEmail = localStorage.getItem('userEmail');
   
-        if (!userToken || !userId) {
+        if (!userToken) {
           alert('請先登入再進行結帳。');
           this.$router.push('/login');
           return;
@@ -101,7 +100,6 @@
   
         const orderItems = this.cart.map(item => ({
           productId: item.productId,
-          productName: item.productName,
           quantity: item.quantity
         }));
   
@@ -110,23 +108,14 @@
           return;
         }
   
-        const totalAmount = this.cartTotal;
-  
         try {
-          const response = await axios.post(
-            `http://localhost:9527/users/${userId}/orders`, 
+          const response = await api.post(
+            '/orders',
             { 
-              buyItemList: orderItems,
-              totalAmount,
-              userEmail: this.userEmail,
+              items: orderItems,
               arrivalDate: this.arrivalDate,
               arrivalTime: this.arrivalTime,
               phoneNumber: this.phoneNumber
-            }, 
-            {
-              headers: {
-                Authorization: `Bearer ${userToken}`
-              }
             }
           );
   
@@ -134,13 +123,13 @@
             console.log('結帳成功', response.data);
             this.clearCart();
             this.confirmationVisible = true;
-            this.purchasedItems = orderItems;
+            this.purchasedItems = response.data.items;
           } else {
             alert('結帳失敗，請重試。');
           }
         } catch (error) {
           console.error('結帳失敗', error.response ? error.response.data : error.message);
-          alert('結帳失敗，請重試。' + (error.response ? error.response.data.message : ''));
+          alert(apiErrorMessage(error, '結帳失敗，請重試。'));
         }
       }
     }

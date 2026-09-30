@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../services/api';
 import { mapActions } from 'vuex';
 
 export default {
@@ -45,7 +45,7 @@ export default {
 
     async fetchProducts() {
       try {
-        const response = await axios.get('http://localhost:9527/products', {
+        const response = await api.get('/products', {
           params: {
             category: 'FOOD',
             limit: 100,

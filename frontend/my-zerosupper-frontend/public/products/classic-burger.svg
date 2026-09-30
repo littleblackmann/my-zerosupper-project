@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">ZERO Supper 經典牛肉堡</title>
+  <desc id="desc">暖色背景上的手繪風格牛肉漢堡</desc>
+  <rect width="800" height="600" rx="48" fill="#fff5e7"/>
+  <circle cx="400" cy="300" r="238" fill="#f7d9a8"/>
+  <path d="M210 274c18-108 98-166 190-166s172 58 190 166H210z" fill="#d88735"/>
+  <path d="M228 276h344c16 0 28 12 28 28s-12 28-28 28H228c-16 0-28-12-28-28s12-28 28-28z" fill="#54a65f"/>
+  <path d="M235 330h330l-42 70H277z" fill="#f4c542"/>
+  <rect x="228" y="382" width="344" height="72" rx="32" fill="#704126"/>
+  <path d="M226 448h348c0 62-58 96-174 96s-174-34-174-96z" fill="#c9782d"/>
+  <g fill="#fff1c2">
+    <ellipse cx="310" cy="189" rx="9" ry="4" transform="rotate(-20 310 189)"/>
+    <ellipse cx="390" cy="160" rx="9" ry="4" transform="rotate(14 390 160)"/>
+    <ellipse cx="475" cy="193" rx="9" ry="4" transform="rotate(-12 475 193)"/>
+  </g>
+  <text x="400" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#552c20">ZERO Supper</text>
+</svg>

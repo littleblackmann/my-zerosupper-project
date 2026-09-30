@@ -7,13 +7,14 @@ import Order from '../components/Order.vue';
 import About from '../components/About.vue';
 import Cart from '../components/Cart.vue';
 import AdminUser from '../components/AdminUser.vue';  
+import MyOrders from '../components/MyOrders.vue';
 
 function isLoggedIn() {
   return localStorage.getItem('userToken') !== null;
 }
 
 function isAdminLoggedIn() {
-  return localStorage.getItem('adminToken') !== null; 
+  return isLoggedIn() && localStorage.getItem('userRole') === 'ADMIN';
 }
 
 const routes = [
@@ -29,6 +30,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   { path: '/cart', component: Cart },
+  {
+    path: '/orders',
+    component: MyOrders,
+    meta: { requiresAuth: true }
+  },
   {
     path: '/admin',
     component: AdminUser,

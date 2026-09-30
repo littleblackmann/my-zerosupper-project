@@ -12,6 +12,8 @@
         <router-link to="/register">註冊會員</router-link>
         <router-link to="/order">線上點餐</router-link>
         <router-link to="/cart">購物車</router-link> 
+        <router-link v-if="isLoggedIn" to="/orders">我的訂單</router-link>
+        <router-link v-if="isAdmin" to="/admin">後台管理</router-link>
       </nav>
   <div class="social-media-icons">
     <a href="https://www.facebook.com/profile.php?id=100063825376433" target="_blank" class="icon">
@@ -47,5 +49,23 @@ import './App.css';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isLoggedIn: localStorage.getItem('userToken') !== null,
+      isAdmin: localStorage.getItem('userRole') === 'ADMIN',
+    };
+  },
+  mounted() {
+    window.addEventListener('zerosupper-auth-changed', this.refreshAuthState);
+  },
+  beforeUnmount() {
+    window.removeEventListener('zerosupper-auth-changed', this.refreshAuthState);
+  },
+  methods: {
+    refreshAuthState() {
+      this.isLoggedIn = localStorage.getItem('userToken') !== null;
+      this.isAdmin = localStorage.getItem('userRole') === 'ADMIN';
+    },
+  },
 }
 </script>

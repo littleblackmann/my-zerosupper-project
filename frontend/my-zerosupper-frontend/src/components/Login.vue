@@ -33,7 +33,7 @@
 
 <script>
 import './Login.css';
-import axios from 'axios';
+import api, { apiErrorMessage, clearSession, saveSession } from '../services/api';
 
 export default {
   name: 'LoginComponent',
@@ -63,7 +63,7 @@ export default {
       }
       
       try {
-        const response = await axios.post('http://localhost:9527/users/login', {
+        const response = await api.post('/auth/login', {
           email: this.email,
           password: this.password
         });
@@ -72,14 +72,11 @@ export default {
           alert('登入成功');
           console.log('登入成功，用戶信息：', response.data);
           
-          localStorage.setItem('userToken', response.data.token);
-          localStorage.setItem('userId', response.data.userId);
-          localStorage.setItem('userEmail', this.email);
+          saveSession(response.data);
           this.isLoggedIn = true;
-          this.userEmail = this.email;
+          this.userEmail = response.data.email;
 
-          if (this.email === 'king@gmail.com') {
-            localStorage.setItem('adminToken', 'true');
+          if (response.data.role === 'ADMIN') {
             this.$router.push('/admin');
           } else {
             this.$router.push('/menu');
@@ -90,13 +87,16 @@ export default {
         }
       } catch (error) {
         console.error('登入錯誤:', error);
-        alert('登入時發生錯誤，請稍後再試。');
+        alert(apiErrorMessage(error, '登入時發生錯誤，請稍後再試。'));
       }
     },
-    handleLogout() {
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('userEmail');
+    async handleLogout() {
+      try {
+        await api.post('/auth/logout');
+      } catch (error) {
+        console.warn('後端登出失敗，仍會清除本機登入狀態。', error);
+      }
+      clearSession();
       this.isLoggedIn = false;
       this.userEmail = '';
       alert('登出成功');

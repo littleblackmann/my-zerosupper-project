@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../services/api';
 
 export default {
   name: 'MenuComponent',
@@ -56,7 +56,7 @@ export default {
   methods: {
     async fetchMenus() {
       try {
-        const response = await axios.get('http://localhost:9527/products', {
+        const response = await api.get('/products', {
           params: {
             category: 'MENU',
             limit: 100,
@@ -73,7 +73,7 @@ export default {
     },
     async fetchBurgers() {
       try {
-        const response = await axios.get('http://localhost:9527/products', {
+        const response = await api.get('/products', {
           params: {
             category: 'BURGER',
             limit: 100,

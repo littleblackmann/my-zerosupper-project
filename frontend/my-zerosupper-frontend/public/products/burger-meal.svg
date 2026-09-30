@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">ZERO Supper 經典套餐</title>
+  <desc id="desc">牛肉堡、脆薯與飲料組成的套餐</desc>
+  <rect width="800" height="600" rx="48" fill="#f1f8ec"/>
+  <circle cx="330" cy="310" r="230" fill="#d9edc9"/>
+  <path d="M150 286c14-82 76-128 148-128s134 46 148 128H150z" fill="#d88735"/>
+  <path d="M166 286h264c14 0 24 11 24 24s-10 24-24 24H166c-14 0-24-11-24-24s10-24 24-24z" fill="#54a65f"/>
+  <path d="M170 332h256l-30 55H200z" fill="#f4c542"/>
+  <rect x="166" y="378" width="264" height="58" rx="26" fill="#704126"/>
+  <path d="M164 430h268c0 50-44 78-134 78s-134-28-134-78z" fill="#c9782d"/>
+  <g stroke="#efb33a" stroke-width="22" stroke-linecap="round">
+    <path d="M510 260l34 170"/><path d="M552 248l28 177"/><path d="M594 258l20 166"/><path d="M635 272l11 150"/>
+  </g>
+  <path d="M494 356h174l-24 166H518z" fill="#c63f35"/>
+  <path d="M608 128h88l-22 236h-46z" fill="#f7f1dd" stroke="#704126" stroke-width="8"/>
+  <text x="400" y="86" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#2f5d3a">ZERO Supper 套餐</text>
+</svg>
